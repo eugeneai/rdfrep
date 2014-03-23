@@ -1,0 +1,24 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"	
+      xmlns:metal="http://xml.zope.org/namespaces/metal">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width">
+        
+        <title tal:content="graph.title(graph.toRDF('http://purl.org/dc/elements/1.1/title')) | default">Test</title>
+    </head>
+    <body>
+    	<div id="content-wrapper">
+    		<div id="content" tal:define="pt graph.get_pt(person)">
+		        <tal:block tal:define="person_def load: ${pt}" metal:use-macro="person_def">
+		        </tal:block>
+	        </div>
+	        <div id="footer">
+		        <tal:block metal:define-slot="footer">
+		        </tal:block>
+	        </div>
+        </div>
+        <span tal:omit-tag="graph.close_graph()"></span>
+    </body>
+</html>

@@ -1,14 +1,14 @@
-<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:tal="http://xml.zope.org/namespaces/tal"	
-      xmlns:metal="http://xml.zope.org/namespaces/metal">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width">
-        
-        <title tal:replace="graph.title() | default">Test</title>
-        
-    </head>
-    <body>
-    </body>
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <tal:block metal:define-macro="person_def">
+            <h1 tal:content="graph.graph.label(person)">Header</h1>
+            <table border="1">
+                <tr tal:repeat="(p,o) graph.graph.predicate_objects(person)">
+                    <td tal:content="p">Predicates</td>
+                    <td tal:content="o">Objects</td>
+                </tr>
+            </table>
+        </tal:block> 
 </html>
