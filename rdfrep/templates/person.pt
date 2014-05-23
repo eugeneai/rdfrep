@@ -1,14 +1,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:tal="http://xml.zope.org/namespaces/tal"	
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:dc="http://purl.org/dc/elements/1.1/">
-        <tal:block metal:define-macro="person_def">
-            <h1 tal:content="graph.graph.label(person)">Header</h1>
-            <table border="1">
-                <tr tal:repeat="(p,o) graph.graph.predicate_objects(person)">
-                    <td tal:content="p">Predicates</td>
-                    <td tal:content="o">Objects</td>
-                </tr>
-            </table>
-        </tal:block> 
+      xmlns:metal="http://xml.zope.org/namespaces/metal">
+      <tal:block tal:define="birthday FOAF.birthday;
+                             name FOAF.name;
+                             phone graph.toRDF('http://xmlns.com/foaf/0.1/phone');
+                             mbox graph.toRDF('http://xmlns.com/foaf/0.1/mbox');
+                             education graph.toRDF('http://xmlns.com/foaf/0.1/education');
+                             year graph.toRDF('http://www.w3.org/2000/10/swap/pim/contact#year');
+                             vuz graph.toRDF('http://www.w3.org/2000/10/swap/pim/contact#vuz');
+                             fac graph.toRDF('http://www.w3.org/2000/10/swap/pim/contact#fac');
+                             kaf graph.toRDF('http://www.w3.org/2000/10/swap/pim/contact#kaf')"
+                   metal:define-macro="person_define">
+            
+        <div class="column" style="margin-bottom:-20px;"
+               prefix="con: http://www.w3.org/2000/10/swap/pim/contact#">
+          <h2 style="margin:15px 0 0 15px;font-weight:700;" tal:content="rdf: person name">Лебедев Михаил Андреевич</h2>
+          <div class="row">
+                <p><strong>Дата рождения: </strong><span tal:content="rdf: person birthday"> 1&nbsp;октября 1973&nbsp;г.</span><br>
+                   <strong>Телефон: </strong><span tal:content="graph.value(person, phone)">+7&nbsp;(XXX) XXX-XX-XX</span><br>
+                   <strong>Эл. почта: </strong><span tal:content="graph.value(person, mbox)">myemail@mail.ru</span></p>
+          </div>
+        </div>
+        <h2>Образование</h2>
+        <div class="list-knowledge" tal:define="vuzobj graph.graph.value(person, education)">
+          <ul>
+            <li><span class="date" tal:content="rdf: vuzobj year">1955&nbsp;г.</span> 
+              <strong tal:content="rdf: vuzobj vuz">Московский энергетический институт</strong><br>
+              <span tal:content="rdf: vuzobj fac">Институт автоматики и&nbsp;вычислительной техники</span><br>
+              <span tal:content="rdf: vuzobj kaf">Кафедра математического моделирования</span></li>
+          </ul>
+        </div>
+      </tal:block> 
 </html>

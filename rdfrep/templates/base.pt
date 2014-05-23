@@ -6,12 +6,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width">
         
-        <title tal:content="graph.title(graph.toRDF('http://purl.org/dc/elements/1.1/title')) | default">Test</title>
+        <title tal:define="t 'http://purl.org/dc/elements/1.1/title'" tal:content="graph.title(graph.toRDF(t)) | default">Test</title>
     </head>
     <body>
     	<div id="content-wrapper">
-    		<div id="content" tal:define="pt graph.get_pt(person)">
-		        <tal:block tal:define="person_def load: ${pt}" metal:use-macro="person_def">
+    		<div id="content" tal:define="pt python: graph.get_pt(person)">
+		        <tal:block tal:define="person_def load: ${pt}" metal:use-macro="person_def.macros['person_define']">
 		        </tal:block>
 	        </div>
 	        <div id="footer">
@@ -20,5 +20,6 @@
 	        </div>
         </div>
         <span tal:omit-tag="graph.close_graph()"></span>
+
     </body>
 </html>
