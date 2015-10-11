@@ -12,7 +12,8 @@ requires = [
     'waitress',
     'Chameleon',
     'rdflib',
-    'pyramid-chameleon'
+    'pyramid-chameleon',
+    'rdflib-kyotocabinet'
     ]
 
 setup(name='rdfrep',
@@ -33,6 +34,7 @@ setup(name='rdfrep',
       include_package_data=True,
       zip_safe=False,
       install_requires=requires,
+      dependency_links = ['https://github.com/RDFLib/rdflib-kyotocabinet/tarball/master#egg=rdflib-kyotocabinet-0.1'],
       tests_require=requires,
       test_suite="rdfrep",
       entry_points="""\

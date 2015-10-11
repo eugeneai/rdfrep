@@ -1,9 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 import rdflib
 import rdflib.store as store
 from rdflib import Namespace
 from rdflib.namespace import FOAF, RDF
 
+DB_PATH="./data"
 PERSON_PT = rdflib.Literal('person.pt')
 dc = Namespace('http://purl.org/dc/elements/1.1/')
 people = Namespace('http://www.w3.org/People/Berners-Lee/card#')
@@ -13,14 +14,14 @@ PT = rdflib.URIRef('http://www.exaple.com/test/pt')
 HTML=rdflib.URIRef('http://www.w3.org/DesignIssues/Overview.html')
 
 class RDFStorage():
-    def load_graph(self,store="KyotoCabinet",path="/home/paskal/python/rdfstore"):
+    def load_graph(self,store="KyotoCabinet",path=DB_PATH):
         ident = rdflib.URIRef("rdflib_test")
         g=rdflib.Graph(store=store, identifier=ident)
         g.open(path, create=True)
         
         if len(g)==0:
             #g.parse("http://www.w3.org/People/Berners-Lee/card")
-            g.parse('example.rdf')
+            g.parse(DB_PATH+'/example.rdf')
             for p in g.subjects(RDF.type, FOAF.Person):
 	        g.add((p, CLASS, PERSON_CLASS))
 	    g.add((PERSON_CLASS, PT, PERSON_PT))
@@ -30,7 +31,7 @@ class RDFStorage():
         print("graph has %s statements." % len(g))
         return g
 
-    def __init__(self,store="KyotoCabinet",path="/home/paskal/python/rdfstore"):
+    def __init__(self,store="KyotoCabinet",path=DB_PATH):
         self.graph=self.load_graph(store,path)
     
     def close_graph(self):

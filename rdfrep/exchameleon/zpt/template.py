@@ -17,6 +17,7 @@ from chameleon.tales import StructureExpr
 from chameleon.tales import ExpressionParser
 from chameleon.loader import TemplateLoader
 from chameleon.astutil import Builtin
+from types import StringType
 
 class MyPageTemplate(PageTemplate, MyBaseTemplate):
     expression_types = {
@@ -63,7 +64,7 @@ class PageTemplateFile(MyPageTemplate, MyBaseTemplateFile):
         if search_path is None:
             search_path = []
         else:
-            if isinstance(search_path, string_type):
+            if isinstance(search_path, StringType):
                 search_path = [search_path]
             else:
                 search_path = list(search_path)
