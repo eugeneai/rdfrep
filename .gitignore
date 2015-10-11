@@ -1,3 +1,4 @@
 *.py[co]
 /data/*.kch
 rdfrep.egg-info/
+build/
