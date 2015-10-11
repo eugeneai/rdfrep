@@ -10,6 +10,9 @@ requires = [
     'pyramid',
     'pyramid_debugtoolbar',
     'waitress',
+    'Chameleon',
+    'rdflib',
+    'pyramid-chameleon'
     ]
 
 setup(name='rdfrep',
